@@ -3,6 +3,10 @@ import yaml
 from opportunity_intel.pack import assemble_pack
 from opportunity_intel.signals import fetch_signal
 
+def render_markdown(pack):
+    # Assuming pack has a method to convert to markdown
+    return str(pack)  # Replace with actual markdown conversion logic
+
 def main():
     parser = argparse.ArgumentParser(description='Generate Opportunity Pack')
     parser.add_argument('--signal_url', required=True, help='URL to fetch signals from')
