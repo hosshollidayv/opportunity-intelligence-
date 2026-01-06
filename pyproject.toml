@@ -1,0 +1,8 @@
+pyproject.toml
+[project]
+name = "opportunity-intelligence"
+requires-python = ">=3.11"
+packages = [{include = "opportunity_intel"}]
+
+[project.optional-dependencies]
+dev = ["pytest"]
