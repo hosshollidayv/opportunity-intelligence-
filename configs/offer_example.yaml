@@ -1,0 +1,4 @@
+example_offer:
+  title: "Example Opportunity"
+  description: "This is an example opportunity description."
+  value: 10000
