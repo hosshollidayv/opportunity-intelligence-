@@ -4,5 +4,9 @@ name = "opportunity-intelligence"
 requires-python = ">=3.11"
 packages = [{include = "opportunity_intel"}]
 
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
 [project.optional-dependencies]
 dev = ["pytest"]
