@@ -1,12 +1,22 @@
-pyproject.toml
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "opportunity-intelligence"
+version = "0.1.0"
+description = "Opportunity Intelligence + Engagement Kits (No-Send)"
 requires-python = ">=3.11"
-packages = [{include = "opportunity_intel"}]
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+dependencies = [
+  "requests",
+  "beautifulsoup4",
+  "pyyaml",
+]
 
 [project.optional-dependencies]
 dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["opportunity_intel*"]
