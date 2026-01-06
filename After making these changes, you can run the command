@@ -1,1 +1,0 @@
-python -m py_compile scripts/run_hiring_batch.py
