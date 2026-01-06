@@ -1,6 +1,7 @@
 import argparse
 import yaml
-from opportunity_intel.pack import create_opportunity_pack
+from opportunity_intel.pack import assemble_pack
+from opportunity_intel.signals import fetch_signal
 
 def main():
     parser = argparse.ArgumentParser(description='Generate Opportunity Pack')
@@ -12,10 +13,9 @@ def main():
     with open(args.offer_config, 'r') as file:
         offer_config = yaml.safe_load(file)
 
-    opportunities = create_opportunity_pack(args.signal_url)
+    pack = assemble_pack(args.signal_url, offer_config)
     
-    for opportunity in opportunities:
-        print(opportunity.to_markdown())
+    print(render_markdown(pack))
 
 if __name__ == '__main__':
     main()
