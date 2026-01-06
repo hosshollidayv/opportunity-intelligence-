@@ -1,6 +1,6 @@
 import argparse
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 import yaml
 
 from opportunity_intel.signals import fetch_signal
@@ -61,7 +61,7 @@ def main():
     with open(args.sources, "r") as f:
         sources_config = yaml.safe_load(f)
 
-    timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H-%M-%SZ")
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
     run_dir = os.path.join(args.output_dir, timestamp)
     os.makedirs(run_dir, exist_ok=True)
 
