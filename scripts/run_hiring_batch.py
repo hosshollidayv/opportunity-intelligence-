@@ -15,7 +15,8 @@ def load_previous_pack(output_dir, company_slug):
 
     runs = sorted(
         [
-            d for d in os.listdir(output_dir)
+            d
+            for d in os.listdir(output_dir)
             if os.path.isdir(os.path.join(output_dir, d))
         ],
         reverse=True,
@@ -65,6 +66,8 @@ def main():
     run_dir = os.path.join(args.output_dir, timestamp)
     os.makedirs(run_dir, exist_ok=True)
 
+    changed_entries = []  # (CompanyName, relative_path)
+
     for source in sources_config.get("sources", []):
         company = source.get("company")
         url = source.get("url")
@@ -105,8 +108,26 @@ def main():
 
             print(f"[{'CHANGED' if changed else 'UNCHANGED'}] {company}")
 
+            if changed:
+                changed_entries.append(
+                    (company, os.path.relpath(output_path, start=run_dir))
+                )
+
         except Exception as e:
             print(f"[ERROR] {company}: {e}")
+
+    # Only emit the "inbox" artifact if anything changed
+    if changed_entries:
+        summary_path = os.path.join(run_dir, "CHANGED_SUMMARY.md")
+        lines = []
+        lines.append("# Changed Signals\n")
+        lines.append(f"Run: {timestamp}\n")
+        lines.append(f"Changed companies: {len(changed_entries)}\n")
+        for company, relpath in changed_entries:
+            lines.append(f"- **{company}**: `{relpath}`")
+        lines.append("")
+        with open(summary_path, "w") as f:
+            f.write("\n".join(lines))
 
 
 if __name__ == "__main__":
