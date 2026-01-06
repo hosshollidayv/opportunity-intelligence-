@@ -56,7 +56,6 @@ def main():
     parser = argparse.ArgumentParser(description="Run hiring signal batch")
     parser.add_argument("--sources", required=True, help="Path to hiring_sources.yaml")
     parser.add_argument("--output_dir", default="outputs", help="Base output directory")
-
     args = parser.parse_args()
 
     with open(args.sources, "r") as f:
@@ -102,7 +101,6 @@ def main():
             )
 
             output_path = os.path.join(run_dir, f"{company_slug}.md")
-
             with open(output_path, "w") as out:
                 out.write(header + current_md)
 
@@ -116,7 +114,6 @@ def main():
         except Exception as e:
             print(f"[ERROR] {company}: {e}")
 
-    # Only emit the "inbox" artifact if anything changed
     if changed_entries:
         summary_path = os.path.join(run_dir, "CHANGED_SUMMARY.md")
         lines = []
